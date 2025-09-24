@@ -10,8 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1:#0b1020; --bg2:#0f1630; --bg3:#151a3a; --accent:#62ffe2; --accent2:#5da9ff; --text:#e7ecff;
-      --muted:#a6b0d4; --card:#0f1533cc; --glass:rgba(255,255,255,.08); --ring:rgba(98,255,226,.35);
+      --bg1:#0a0f22; --bg2:#0e1733; --bg3:#151c3f; --accent:#62ffe2; --accent2:#5da9ff; --text:#f2f6ff;
+      --muted:#c4cdee; --card:#0f1533cc; --glass:rgba(255,255,255,.1); --ring:rgba(98,255,226,.45);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -101,9 +101,7 @@
   <header>
     <div class="container nav">
       <a class="brand" href="#">
-        <span class="logo">
-          <img src="logo.png" alt="SatcomLLM logo" style="width:100%;height:100%;object-fit:contain"/>
-        </span>
+        
         <strong>SatcomLLM</strong>
       </a>
       <a class="btn" href="#get-started">Get started</a>
@@ -111,27 +109,12 @@
   </header>
 
   <main class="container hero">
-    <div class="grid">
-      <div class="tilt">
-        <div class="card reveal" style="transform:translateZ(30px)">
-          <div class="chips">
-            <span class="chip">Open source</span>
-            <span class="chip">Satcom</span>
-            <span class="chip">AI assistant</span>
-          </div>
-          <h1 class="headline">SatcomLLM, an AI stack for satellite communications</h1>
-          <p class="sub">We are building a domain focused large language model and an expert assistant named SCEVA. It supports engineers and teams with link budgets, design choices, mission docs and security guidance. The project ships an adapted model, a web app and API, and a curated dataset from the satcom field.</p>
-          <div class="actions">
-            <a class="primary" href="#get-started">Use this template</a>
-            <a class="ghost" href="#features">See features</a>
-          </div>
-        </div>
-      </div>
-      <div class="orb card reveal" aria-hidden="true">
-        <canvas id="orb"></canvas>
-      </div>
-    </div>
-  </main>
+    <div class="grid" style="grid-template-columns:1fr">
+      <div class="reveal" style="text-align:center">
+        <img src="logo.png" alt="SatcomLLM logo" style="width:min(220px,40vw);height:auto;display:block;margin:0 auto 18px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.45))"/>
+        <h1 class="headline" style="margin-inline:auto;max-width:18ch">SatcomLLM, an AI stack for satellite communications</h1>
+        <p class="sub" style="margin-inline:auto;max-width:65ch">
+          We are building a domain focused language model and an expert assistant named SCEVA. It helps with link budgets, design c
 
   <section class="container" id="about">
     <h2 class="reveal">What the project delivers</h2>
