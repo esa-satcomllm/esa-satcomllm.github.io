@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SatcomLLM — Project Site</title>
+  <meta name="description" content="SatcomLLM project site" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0b1020; --bg2:#0f1630; --bg3:#151a3a; --accent:#62ffe2; --accent2:#5da9ff; --text:#e7ecff;
+      --muted:#a6b0d4; --card:#0f1533cc; --glass:rgba(255,255,255,.08); --ring:rgba(98,255,226,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      color:var(--text); background:radial-gradient(1200px 800px at 10% 10%, #1d2550 0%, transparent 60%),
+                        radial-gradient(800px 600px at 90% 0%, #10244a 0%, transparent 60%),
+                        linear-gradient(180deg, var(--bg1), var(--bg2) 30%, var(--bg3));
+      overflow-x:hidden;
+    }
+    /* Animated aurora */
+    .aurora{position:fixed; inset:0; pointer-events:none; z-index:-1;}
+    .aurora::before,.aurora::after{
+      content:""; position:absolute; inset:-20%; filter:blur(60px); opacity:.6; mix-blend-mode:screen;
+      background:conic-gradient(from 0deg at 50% 50%, #1dd6ff, #6bffb8, #7a5cff, #1dd6ff);
+      animation:flow 20s linear infinite;
+      transform:translateZ(0);
+    }
+    .aurora::after{animation-duration:28s; background:conic-gradient(from 90deg at 50% 50%, #5da9ff, #62ffe2, #b07cff, #5da9ff);}
+    @keyframes flow{0%{transform:rotate(0deg) scale(1)} 100%{transform:rotate(360deg) scale(1)}}
+
+    header{
+      position:sticky; top:0; z-index:30; backdrop-filter:saturate(160%) blur(8px);
+      background:linear-gradient(180deg, rgba(10,12,24,.8), rgba(10,12,24,.3));
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; gap:12px; align-items:center; text-decoration:none; color:var(--text)}
+    .logo{width:36px; height:36px}
+    .logo svg{width:100%; height:100%}
+    .brand strong{font-family:"Space Grotesk",Inter,system-ui; font-weight:700; letter-spacing:.5px; font-size:18px}
+    .nav a.btn{padding:10px 16px; border-radius:12px; border:1px solid var(--ring); text-decoration:none; color:var(--text)}
+
+    .hero{padding:92px 0 64px; position:relative}
+    .grid{display:grid; gap:28px}
+    @media(min-width:900px){.grid{grid-template-columns:1.2fr .8fr; align-items:center}}
+
+    .headline{font-family:"Space Grotesk"; font-size:clamp(38px,6vw,64px); line-height:1.04; margin:0 0 16px}
+    .sub{color:var(--muted); font-size:clamp(16px,2.2vw,20px); max-width:52ch}
+
+    .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:28px}
+    .primary{background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#07101f;
+      padding:12px 18px; border-radius:14px; text-decoration:none; font-weight:700; box-shadow:0 10px 30px rgba(98,255,226,.25);}
+    .ghost{padding:12px 18px; border-radius:14px; text-decoration:none; color:var(--text); border:1px solid rgba(255,255,255,.15)}
+
+    .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:20px; padding:22px; box-shadow:0 20px 60px rgba(0,0,0,.35)}
+    .tilt{transform-style:preserve-3d; perspective:800px}
+
+    /* Feature chips */
+    .chips{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 8px}
+    .chip{padding:8px 12px; border-radius:999px; font-size:13px; color:#0b1425; background:linear-gradient(135deg,#a0ffe7,#72b9ff)}
+
+    /* Right visual */
+    .orb{aspect-ratio:1/1; border-radius:26px; position:relative; overflow:hidden}
+    .orb::before{content:""; position:absolute; inset:-20%; background:radial-gradient(circle at 30% 30%, #62ffe2aa 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, #5da9ffaa 0%, transparent 50%);
+                 filter:blur(20px);}
+    .orb canvas{position:absolute; inset:0}
+
+    /* Sections */
+    section{padding:42px 0}
+    h2{font-family:"Space Grotesk"; font-size:28px; margin:0 0 10px}
+    p.lead{color:var(--muted); margin:0 0 22px}
+
+    .features{display:grid; gap:18px}
+    @media(min-width:800px){.features{grid-template-columns:repeat(3,1fr)}}
+    .feature{padding:18px; border-radius:16px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08)}
+    .feature h3{margin:8px 0 6px; font-size:18px}
+    .feature p{margin:0; color:var(--muted)}
+
+    /* Footer */
+    footer{padding:36px 0 60px; color:var(--muted); text-align:center}
+
+    /* Reveal */
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.show{opacity:1; transform:translateY(0)}
+
+    /* Starfield */
+    #stars{position:fixed; inset:0; z-index:-2;}
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="aurora"></div>
+
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true">
+          <!-- Minimal rocket-signal mark -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SatcomLLM logo">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#62ffe2"/>
+                <stop offset="100%" stop-color="#5da9ff"/>
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" stroke="url(#g)" stroke-width="2" opacity=".5"/>
+            <path d="M32 8c6 7 9 13 9 18 0 4-2 7-5 9l1 7-5-4-5 4 1-7c-3-2-5-5-5-9 0-5 3-11 9-18Z" fill="url(#g)"/>
+            <path d="M21 43c-3 2-6 6-7 11 5-1 9-4 11-7" stroke="#62ffe2" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <strong>SatcomLLM</strong>
+      </a>
+      <a class="btn" href="#get-started">Get started</a>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <div class="grid">
+      <div class="tilt">
+        <div class="card reveal" style="transform:translateZ(30px)">
+          <div class="chips">
+            <span class="chip">Open source</span>
+            <span class="chip">Satcom</span>
+            <span class="chip">AI assistant</span>
+          </div>
+          <h1 class="headline">Build with a clean site that still pops</h1>
+          <p class="sub">Drop this file in your repo and publish on GitHub Pages. You get smooth motion, a glow effect, and neat cards, all in one file. Replace the copy with your project story.</p>
+          <div class="actions">
+            <a class="primary" href="#get-started">Use this template</a>
+            <a class="ghost" href="#features">See features</a>
+          </div>
+        </div>
+      </div>
+      <div class="orb card reveal" aria-hidden="true">
+        <canvas id="orb"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <section class="container" id="features">
+    <h2 class="reveal">Quick highlights</h2>
+    <p class="lead reveal">Single file. No build step. Works on mobile and desktop. Easy to edit.</p>
+    <div class="features">
+      <div class="feature reveal">
+        <h3>Glass cards</h3>
+        <p>Soft edges and subtle borders for a modern feel.</p>
+      </div>
+      <div class="feature reveal">
+        <h3>Animated backdrop</h3>
+        <p>Starfield and aurora give a calm motion effect without heavy scripts.</p>
+      </div>
+      <div class="feature reveal">
+        <h3>Small JS</h3>
+        <p>Just enough for tilt, reveal on scroll, and the visuals.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="get-started">
+    <h2 class="reveal">How to ship</h2>
+    <div class="card reveal">
+      <ol>
+        <li>Save this file as <code>index.html</code> in your repo.</li>
+        <li>Push to the <code>main</code> branch or your Pages branch.</li>
+        <li>Turn on Pages in repo settings and choose your source.</li>
+        <li>Edit the title, text, and colors to match your brand.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="container">
+    <p>© <span id="year"></span> SatcomLLM. Built with plain HTML, CSS, and JS.</p>
+  </footer>
+
+  <script>
+    // Starfield background
+    const starCanvas = document.getElementById('stars');
+    const stx = starCanvas.getContext('2d');
+    let stars = [], sw, sh;
+    function resizeStars(){ sw=starCanvas.width=window.innerWidth; sh=starCanvas.height=window.innerHeight; stars = Array.from({length: Math.min(250, Math.round(sw*sh/8000))}, () => ({x:Math.random()*sw, y:Math.random()*sh, z:Math.random()*1+0.3, a:Math.random()*0.6+0.2}));}
+    function drawStars(){ stx.clearRect(0,0,sw,sh); stx.fillStyle='#fff'; stars.forEach(s=>{ s.y += s.z; if(s.y>sh) s.y=0; stx.globalAlpha=s.a; stx.fillRect(s.x, s.y, s.z, s.z) }); requestAnimationFrame(drawStars); }
+    window.addEventListener('resize', resizeStars); resizeStars(); drawStars();
+
+    // Orb gradient wobble
+    const orbCanvas = document.getElementById('orb');
+    if(orbCanvas){
+      const ctx = orbCanvas.getContext('2d');
+      function size(){ const p=orbCanvas.parentElement.getBoundingClientRect(); orbCanvas.width=p.width; orbCanvas.height=p.height; }
+      window.addEventListener('resize', size); size();
+      let t=0; function draw(){ const w=orbCanvas.width, h=orbCanvas.height; ctx.clearRect(0,0,w,h); const g=ctx.createRadialGradient(w*.35+Math.sin(t)*20, h*.35+Math.cos(t*.8)*20, 10, w*.5, h*.5, Math.max(w,h)*.7); g.addColorStop(0,'rgba(98,255,226,.55)'); g.addColorStop(1,'rgba(93,169,255,0)'); ctx.fillStyle=g; ctx.fillRect(0,0,w,h); t+=0.01; requestAnimationFrame(draw); } draw();
+    }
+
+    // Tilt effect
+    document.querySelectorAll('.tilt .card').forEach(card=>{
+      const r=10; card.addEventListener('mousemove', e=>{ const b=card.getBoundingClientRect(); const x = e.clientX - b.left; const y = e.clientY - b.top; const rx = ((y - b.height/2) / b.height) * -r; const ry = ((x - b.width/2) / b.width) * r; card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(30px)`; });
+      card.addEventListener('mouseleave', ()=>{ card.style.transform='translateZ(30px)'; });
+    });
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('show'); io.unobserve(en.target);} });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
